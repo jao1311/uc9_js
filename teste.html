@@ -1,0 +1,61 @@
+<script>
+
+let posicaoX = 4
+let posicaoY = 0
+let chao = "_"
+let personagem = "x"
+let moeda = "o"
+let moeda_pegue = false
+let pos_moedaX = 10
+let pos_moedaY = 0
+let tamanho_mundo = 20
+let limiteY = 3
+
+document.addEventListener("keyup", (e) => {
+
+    let passo = e.shiftKey ? 3 : 1
+
+    if (e.key === "ArrowRight") {
+        if (posicaoX + passo < tamanho_mundo)
+            posicaoX += passo
+    } else if (e.key === "ArrowLeft") {
+        if (posicaoX - passo >= 0)
+            posicaoX -= passo
+    } else if (e.key === "ArrowUp") {
+        if (posicaoY - 1 >= 0)
+            posicaoY--
+    } else if (e.key === "ArrowDown") {
+        if (posicaoY + 1 <= limiteY)
+            posicaoY++
+    }
+
+    if (posicaoX === pos_moedaX && posicaoY === pos_moedaY && !moeda_pegue) {
+        moeda_pegue = true
+        console.log("Moeda coletada!")
+    }
+
+    console.clear()
+    desenhar()
+})
+
+function desenhar() {
+
+    
+    for (let y = 0; y <= limiteY; y++) {
+        let linha = ""
+        for (let x = 0; x < tamanho_mundo; x++) {
+            if (x === posicaoX && y === posicaoY) {
+                linha += personagem
+            } else if (x === pos_moedaX && y === pos_moedaY && !moeda_pegue) {
+                linha += moeda
+            } else {
+                linha += chao
+            }
+        }
+        console.log(linha)
+    }
+}
+
+desenhar()
+
+</script>
